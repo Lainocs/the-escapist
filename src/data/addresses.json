@@ -1,0 +1,17 @@
+[
+	{
+		"emoji": "🍚",
+		"name": "Rice & Fish",
+		"address": "16 rue Greneta, 75002 Paris"
+	},
+	{
+		"emoji": "🍗",
+		"name": "Rôtisserie Stevenot",
+		"address": "2 rue des Petits Carreaux, 75002 Paris"
+	},
+	{
+		"emoji": "🛒",
+		"name": "Monoprix",
+		"address": "Bd de Sébastopol, 75002 Paris"
+	}
+]
