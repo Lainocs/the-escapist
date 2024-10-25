@@ -1,0 +1,250 @@
+[
+  {
+    "Name": "Corn Dog Paris",
+    "Address": "38 Pass. du Ponceau, 75002 Paris, France",
+    "Rating": 4.6,
+    "Price Level": "PRICE_LEVEL_INEXPENSIVE",
+    "Type": "korean_restaurant",
+    "Google Maps URL": "https://maps.google.com/?cid=10087118549977162487"
+  },
+  {
+    "Name": "Uma Nota",
+    "Address": "86 Rue Réaumur, 75002 Paris, France",
+    "Rating": 4.1,
+    "Price Level": "PRICE_LEVEL_MODERATE",
+    "Type": "brazilian_restaurant",
+    "Google Maps URL": "https://maps.google.com/?cid=941240740669096026"
+  },
+  {
+    "Name": "Furahaa | Vegan",
+    "Address": "78 Rue Réaumur, 75002 Paris, France",
+    "Rating": 4.7,
+    "Price Level": "PRICE_LEVEL_INEXPENSIVE",
+    "Type": "vegan_restaurant",
+    "Google Maps URL": "https://maps.google.com/?cid=17946014425411962967"
+  },
+  {
+    "Name": "Santa Lyna",
+    "Address": "96 Bd de Sébastopol, 75003 Paris, France",
+    "Rating": 4.8,
+    "Price Level": "PRICE_LEVEL_MODERATE",
+    "Type": "brunch_restaurant",
+    "Google Maps URL": "https://maps.google.com/?cid=8523032904433096064"
+  },
+  {
+    "Name": "Shujiuxiang",
+    "Address": "168 Rue St Denis, 75002 Paris, France",
+    "Rating": 4.2,
+    "Price Level": "PRICE_LEVEL_MODERATE",
+    "Type": "restaurant",
+    "Google Maps URL": "https://maps.google.com/?cid=6111941626336229219"
+  },
+  {
+    "Name": "Five Pizza Original - Paris 2 - Réaumur",
+    "Address": "162 Rue St Denis, 75002 Paris, France",
+    "Rating": 4.1,
+    "Price Level": "PRICE_LEVEL_INEXPENSIVE",
+    "Type": "pizza_restaurant",
+    "Google Maps URL": "https://maps.google.com/?cid=3171744066218140055"
+  },
+  {
+    "Name": "Twinkie Breakfast & Lunch",
+    "Address": "167 Rue St Denis, 75002 Paris, France",
+    "Rating": 4.1,
+    "Price Level": "PRICE_LEVEL_MODERATE",
+    "Type": "american_restaurant",
+    "Google Maps URL": "https://maps.google.com/?cid=2448499698508765829"
+  },
+  {
+    "Name": "Petit Bao - Etienne Marcel",
+    "Address": "116 Rue St Denis, 75002 Paris, France",
+    "Rating": 4.6,
+    "Price Level": "PRICE_LEVEL_MODERATE",
+    "Type": "chinese_restaurant",
+    "Google Maps URL": "https://maps.google.com/?cid=13535352944399145840"
+  },
+  {
+    "Name": "BONCHON",
+    "Address": "240 Rue St Denis, 75002 Paris, France",
+    "Rating": 4.3,
+    "Price Level": "PRICE_LEVEL_MODERATE",
+    "Type": "korean_restaurant",
+    "Google Maps URL": "https://maps.google.com/?cid=3091864212159563449"
+  },
+  {
+    "Name": "KINGKONG",
+    "Address": "19 Rue Blondel, 75002 Paris, France",
+    "Rating": 4.3,
+    "Price Level": "PRICE_LEVEL_MODERATE",
+    "Type": "korean_restaurant",
+    "Google Maps URL": "https://maps.google.com/?cid=6327934188107540728"
+  },
+  {
+    "Name": "The Frog & Rosbif",
+    "Address": "116 Rue St Denis, 75002 Paris, France",
+    "Rating": 4.1,
+    "Price Level": "PRICE_LEVEL_MODERATE",
+    "Type": "bar",
+    "Google Maps URL": "https://maps.google.com/?cid=10228686281740042202"
+  },
+  {
+    "Name": "BO&MIE",
+    "Address": "18 R. de Turbigo, 75002 Paris, France",
+    "Rating": 4.5,
+    "Price Level": "PRICE_LEVEL_MODERATE",
+    "Type": "bakery",
+    "Google Maps URL": "https://maps.google.com/?cid=16135438095899736518"
+  },
+  {
+    "Name": "Tigermilk",
+    "Address": "77 Rue d'Aboukir, 75002 Paris, France",
+    "Rating": 4.6,
+    "Price Level": "PRICE_LEVEL_MODERATE",
+    "Type": "restaurant",
+    "Google Maps URL": "https://maps.google.com/?cid=10607681627656789460"
+  },
+  {
+    "Name": "Big Black Cook",
+    "Address": "7 Rue Tiquetonne, 75002 Paris, France",
+    "Rating": 4.8,
+    "Price Level": "PRICE_LEVEL_MODERATE",
+    "Type": "restaurant",
+    "Google Maps URL": "https://maps.google.com/?cid=5458142543504075376"
+  },
+  {
+    "Name": "Happy Nouilles",
+    "Address": "95 Rue Beaubourg, 75003 Paris, France",
+    "Rating": 4.4,
+    "Price Level": "PRICE_LEVEL_INEXPENSIVE",
+    "Type": "restaurant",
+    "Google Maps URL": "https://maps.google.com/?cid=1983016282968460798"
+  },
+  {
+    "Name": "Bouillon Julien",
+    "Address": "16 Rue du Faubourg Saint-Denis, 75010 Paris, France",
+    "Rating": 4.1,
+    "Price Level": "PRICE_LEVEL_MODERATE",
+    "Type": "restaurant",
+    "Google Maps URL": "https://maps.google.com/?cid=12536142144679360080"
+  },
+  {
+    "Name": "Le Petit Bouillon Pharamond",
+    "Address": "24 Rue de la Grande Truanderie, 75001 Paris, France",
+    "Rating": 4.2,
+    "Price Level": "PRICE_LEVEL_MODERATE",
+    "Type": "restaurant",
+    "Google Maps URL": "https://maps.google.com/?cid=7007874078264309140"
+  },
+  {
+    "Name": "TranTranZai",
+    "Address": "94 Rue St Denis, 75001 Paris, France",
+    "Rating": 4.3,
+    "Price Level": "PRICE_LEVEL_MODERATE",
+    "Type": "chinese_restaurant",
+    "Google Maps URL": "https://maps.google.com/?cid=6375051263636917463"
+  },
+  {
+    "Name": "Les Marmottes",
+    "Address": "26 Rue de la Grande Truanderie, 75001 Paris, France",
+    "Rating": 4.3,
+    "Price Level": "PRICE_LEVEL_MODERATE",
+    "Type": "restaurant",
+    "Google Maps URL": "https://maps.google.com/?cid=1896051699903056768"
+  },
+  {
+    "Name": "Pizzeria Popolare",
+    "Address": "111 Rue Réaumur, 75002 Paris, France",
+    "Rating": 4.7,
+    "Price Level": "PRICE_LEVEL_INEXPENSIVE",
+    "Type": "pizza_restaurant",
+    "Google Maps URL": "https://maps.google.com/?cid=2832844203071077109"
+  },
+  {
+    "Name": "Burger King",
+    "Address": "2 Rue Pierre Lescot, 75001 Paris, France",
+    "Rating": 4.2,
+    "Price Level": "PRICE_LEVEL_INEXPENSIVE",
+    "Type": "fast_food_restaurant",
+    "Google Maps URL": "https://maps.google.com/?cid=16674060279464527517"
+  },
+  {
+    "Name": "Los Brothers",
+    "Address": "73 Rue St Denis, 75001 Paris, France",
+    "Rating": 4.5,
+    "Price Level": "PRICE_LEVEL_MODERATE",
+    "Type": "restaurant",
+    "Google Maps URL": "https://maps.google.com/?cid=2461922944402278246"
+  },
+  {
+    "Name": "Holybelly",
+    "Address": "5 Rue Lucien Sampaix, 75010 Paris, France",
+    "Rating": 4.7,
+    "Price Level": "PRICE_LEVEL_MODERATE",
+    "Type": "breakfast_restaurant",
+    "Google Maps URL": "https://maps.google.com/?cid=9552673278812330712"
+  },
+  {
+    "Name": "GRUPPOMIMO - Paris 2",
+    "Address": "157 Rue Montmartre, 75002 Paris, France",
+    "Rating": 4.7,
+    "Price Level": "PRICE_LEVEL_MODERATE",
+    "Type": "restaurant",
+    "Google Maps URL": "https://maps.google.com/?cid=16868437301383552374"
+  },
+  {
+    "Name": "BRIQUE MACHINE - Brique House",
+    "Address": "161 Rue Montmartre, 75002 Paris, France",
+    "Rating": 4.6,
+    "Price Level": "PRICE_LEVEL_MODERATE",
+    "Type": "restaurant",
+    "Google Maps URL": "https://maps.google.com/?cid=9775646944681303325"
+  },
+  {
+    "Name": "Bouillon Chartier Grands Boulevards",
+    "Address": "7 Rue du Faubourg Montmartre, 75009 Paris, France",
+    "Rating": 4.1,
+    "Price Level": "PRICE_LEVEL_INEXPENSIVE",
+    "Type": "french_restaurant",
+    "Google Maps URL": "https://maps.google.com/?cid=17691421677029071208"
+  },
+  {
+    "Name": "XiaoLongKan",
+    "Address": "8 Rue Saint-Marc, 75002 Paris, France",
+    "Rating": 4.6,
+    "Price Level": "PRICE_LEVEL_MODERATE",
+    "Type": "chinese_restaurant",
+    "Google Maps URL": "https://maps.google.com/?cid=1531083128345840968"
+  },
+  {
+    "Name": "Bouillon République",
+    "Address": "39 Bd du Temple, 75003 Paris, France",
+    "Rating": 4.7,
+    "Price Level": "PRICE_LEVEL_INEXPENSIVE",
+    "Type": "restaurant",
+    "Google Maps URL": "https://maps.google.com/?cid=16487012426854492634"
+  },
+  {
+    "Name": "Neko Ramen",
+    "Address": "6 Rue de la Grange Batelière, 75009 Paris, France",
+    "Rating": 4.4,
+    "Price Level": "PRICE_LEVEL_MODERATE",
+    "Type": "ramen_restaurant",
+    "Google Maps URL": "https://maps.google.com/?cid=4298891228259165414"
+  },
+  {
+    "Name": "Libertino",
+    "Address": "44 Rue de Paradis, 75010 Paris, France",
+    "Rating": 4.8,
+    "Price Level": "PRICE_LEVEL_MODERATE",
+    "Type": "italian_restaurant",
+    "Google Maps URL": "https://maps.google.com/?cid=3932161892691848706"
+  },
+  {
+    "Name": "Chez Alain Miam Miam",
+    "Address": "26 Rue Charlot, 75003 Paris, France",
+    "Rating": 4.3,
+    "Price Level": "PRICE_LEVEL_MODERATE",
+    "Type": "sandwich_shop",
+    "Google Maps URL": "https://maps.google.com/?cid=6353032480867251527"
+  }
+]
