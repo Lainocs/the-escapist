@@ -1,5 +1,6 @@
 import { Client, GatewayIntentBits } from 'discord.js'
 import dotenv from 'dotenv'
+import { handleMiam } from './handlers/miamHandler'
 import { handlePing } from './handlers/pingHandler'
 dotenv.config()
 
@@ -12,12 +13,16 @@ class EscapistApplication {
 		this.client = new Client({
 			intents: [
 				GatewayIntentBits.Guilds,
+				GatewayIntentBits.GuildMembers,
 				GatewayIntentBits.GuildMessages,
 				GatewayIntentBits.MessageContent,
+				GatewayIntentBits.GuildMessagePolls,
 			],
 			shards: 'auto',
 			failIfNotExists: false,
 		})
+
+		handleMiam(this.client, process.env.DISCORD_CHANNEL_ID)
 
 		this.client.on('messageCreate', (message) => {
 			handlePing(message)
