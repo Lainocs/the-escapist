@@ -33,7 +33,7 @@ class EscapistApplication {
 		this.client
 			.login(DISCORD_ACCESS_TOKEN)
 			.then(() => {
-				console.log('Bot started')
+				console.log('\x1b[32mBot started\x1b[0m');
 			})
 			.catch((err) => {
 				console.error('Error starting bot', err)
