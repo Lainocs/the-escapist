@@ -6,6 +6,9 @@ dotenv.config()
 
 const DISCORD_ACCESS_TOKEN = process.env.DISCORD_ACCESS_TOKEN || ''
 
+const DISCORD_TEST_CHANNEL_ID = '1299353563151208470'
+const DISCORD_CHANNEL_ID = ''
+
 class EscapistApplication {
 	private client: Client
 
@@ -22,7 +25,7 @@ class EscapistApplication {
 			failIfNotExists: false,
 		})
 
-		handleMiam(this.client, process.env.DISCORD_CHANNEL_ID)
+		handleMiam(this.client, DISCORD_TEST_CHANNEL_ID)
 
 		this.client.on('messageCreate', (message) => {
 			handlePing(message)
