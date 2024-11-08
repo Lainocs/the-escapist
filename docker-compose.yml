@@ -1,0 +1,11 @@
+services:
+  the_escapist:
+    build: .
+    ports:
+      - "3003:3003"
+    environment:
+      - DISCORD_ACCESS_TOKEN=${DISCORD_ACCESS_TOKEN}
+      - DISCORD_CHANNEL_ID=${DISCORD_CHANNEL_ID}
+    volumes:
+      - .:/app
+      - /app/node_modules
