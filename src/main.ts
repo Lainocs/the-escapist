@@ -37,6 +37,7 @@ class EscapistApplication {
 			})
 			.catch((err) => {
 				console.error('Error starting bot', err)
+				process.exit(1)
 			})
 	}
 }
