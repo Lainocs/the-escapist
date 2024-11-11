@@ -1,5 +1,10 @@
 [
 	{
+		"emoji": "✨",
+		"name": "Recommandation",
+		"address": "Not implemented yet"
+	},
+	{
 		"emoji": "🍚",
 		"name": "Rice & Fish",
 		"address": "16 rue Greneta, 75002 Paris"
@@ -8,6 +13,36 @@
 		"emoji": "🍗",
 		"name": "Rôtisserie Stevenot",
 		"address": "2 rue des Petits Carreaux, 75002 Paris"
+	},
+	{
+		"emoji": "🌮",
+		"name": "O'tacos",
+		"address": "83 Rue Réaumur, 75002 Paris"
+	},
+	{
+		"emoji": "🐑",
+		"name": "Los Brothers",
+		"address": "73 Rue St Denis, 75001 Paris"
+	},
+	{
+		"emoji": "🌭",
+		"name": "Brick Lane",
+		"address": "183 Rue St Denis, 75002 Paris"
+	},
+	{
+		"emoji": "🐟",
+		"name": "Johana's Fish & Chips",
+		"address": "30 Rue Saint-Sauveur, 75002 Paris"
+	},
+	{
+		"emoji": "🍖",
+		"name": "La Brigade",
+		"address": "108 Rue Réaumur, 75002 Paris"
+	},
+	{
+		"emoji": "🥪",
+		"name": "Subway",
+		"address": "33 Rue des Petits Carreaux, 75002 Paris"
 	},
 	{
 		"emoji": "🛒",

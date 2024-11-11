@@ -20,7 +20,7 @@ export function handleMiam(client: Client, channelId: string) {
 			if (channel) {
 				channel.send({
 					poll: {
-						question: { text: 'Time to choose !, what do you want to eat ?' },
+						question: { text: 'Time to choose ! What do you want to eat ?' },
 						answers: displayAnswers(),
 						allowMultiselect: true,
 						duration: 1,
