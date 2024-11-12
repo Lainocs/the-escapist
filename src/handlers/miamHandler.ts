@@ -14,7 +14,7 @@ const displayAnswers = (): PollAnswerData[] => {
 
 export function handleMiam(client: Client, channelId: string) {
 	cron.schedule(
-		'0 12 * * 1-5',
+		'15 11 * * 1-5',
 		() => {
 			const channel = client.channels.cache.get(channelId) as TextChannel
 			if (channel) {
