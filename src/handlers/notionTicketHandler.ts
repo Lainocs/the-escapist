@@ -13,6 +13,48 @@ const cleanMessageContent = (content: string) => {
 	return content.replace(/<@!?&?\d+>/g, '').trim()
 }
 
+// Function to generate rich text from message content
+const generateRichText = (content: string) => {
+	// Find links and wrap them in rich text link objects
+	const urlRegex = /(https?:\/\/[^\s]+)/g
+	const urlMatches = [...content.matchAll(urlRegex)]
+	let richTextContent = []
+	let lastIndex = 0
+
+	// Process each match
+	urlMatches.forEach((match) => {
+		const [url] = match
+		const start = match.index || 0
+		const end = start + url.length
+
+		// Push the text before the URL as a plain text block
+		if (start > lastIndex) {
+			richTextContent.push({
+				text: { content: content.slice(lastIndex, start) },
+			})
+		}
+
+		// Push the URL as a link
+		richTextContent.push({
+			text: {
+				content: url,
+				link: { url },
+			},
+		})
+
+		lastIndex = end
+	})
+
+	// Push the remaining text after the last URL
+	if (lastIndex < content.length) {
+		richTextContent.push({
+			text: { content: content.slice(lastIndex) },
+		})
+	}
+
+	return richTextContent
+}
+
 export async function handleNotionTicket(message: Message) {
 	if (message.content.toLowerCase().startsWith('/ticket')) {
 		const messageChannel = message.channel
@@ -163,19 +205,11 @@ export async function handleNotionTicket(message: Message) {
 						rich_text: [{ text: { content: 'History' } }],
 					},
 				},
-				{
+				...cleanedMessages.map((msg) => ({
 					paragraph: {
-						rich_text: [
-							{
-								text: {
-									content: cleanedMessages
-										.map((msg) => `- ${msg.content}`)
-										.join('\n'),
-								},
-							},
-						],
+						rich_text: generateRichText(msg.content),
 					},
-				}
+				}))
 			)
 
 			// Append children to the Notion page
