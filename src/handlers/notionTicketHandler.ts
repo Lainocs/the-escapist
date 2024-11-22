@@ -1,101 +1,125 @@
 import { Client } from '@notionhq/client'
-import { Message, NewsChannel, TextChannel } from 'discord.js'
+import { ForumChannel, Message, ThreadChannel } from 'discord.js'
 import dotenv from 'dotenv'
 
 dotenv.config()
 
-console.log(process.env.NOTION_API_KEY)
-
 const notion = new Client({ auth: process.env.NOTION_API_KEY })
-const NOTION_DATABASE_ID = process.env.NOTION_DATABASE_ID
-const NOTION_EPIC_ID = process.env.NOTION_EPIC_ID
+const NOTION_DATABASE_ID = process.env.NOTION_DATABASE_ID || ''
+const NOTION_EPIC_ID = process.env.NOTION_EPIC_ID || ''
+
+// Function to clean up mentions from the message content
+const cleanMessageContent = (content: string) => {
+	return content.replace(/<@!?&?\d+>/g, '').trim()
+}
 
 export async function handleNotionTicket(message: Message) {
 	if (message.content.toLowerCase().startsWith('/ticket')) {
 		const messageChannel = message.channel
 
-		let ticketTitle = message.content.split(' ').slice(1).join(' ')
-		if (
-			messageChannel instanceof TextChannel ||
-			messageChannel instanceof NewsChannel
-		) {
-			if (!ticketTitle) {
-				const channelName = messageChannel.name
+		// Initialize the ticket title with the message content
+		let ticketTitle = message.content.split(' ').slice(1).join(' ').trim()
 
-				ticketTitle = `${channelName}`
+		if (
+			messageChannel instanceof ThreadChannel ||
+			messageChannel instanceof ForumChannel
+		) {
+			// Use channel name if the title is empty
+			if (!ticketTitle) {
+				ticketTitle = messageChannel.name
 			}
 		} else {
-			console.log('The channel does not have a `name` property.')
+			console.log(
+				'The channel does not have a `name` property or is unsupported.'
+			)
 		}
 
-		message.reply('Creating ticket...')
+		// Inform the user that the ticket is being created
+		await message.reply('Creating ticket...')
 
-		const response = await notion.pages.create({
-			parent: {
-				type: 'database_id',
-				database_id: NOTION_DATABASE_ID,
-			},
-			properties: {
-				Name: {
-					title: [
-						{
-							text: {
-								content: ticketTitle,
-							},
-						},
-					],
+		try {
+			// Create a page in Notion
+			const response = await notion.pages.create({
+				parent: { type: 'database_id', database_id: NOTION_DATABASE_ID },
+				properties: {
+					Name: {
+						title: [{ text: { content: ticketTitle } }],
+					},
+					'👫 Team': {
+						multi_select: [{ name: 'Tech - App' }],
+					},
+					'🎯 Priority': {
+						select: { name: '#P1' },
+					},
+					'🏔️ Epic': {
+						relation: [{ id: NOTION_EPIC_ID }],
+					},
 				},
-				'👫 Team': {
-					multi_select: [{ name: 'Tech - App' }],
-				},
-				'🎯 Priority': {
-					select: { name: '#P1' },
-				},
-				'🏔️ Epic': {
-					relation: [
-						{
-							id: NOTION_EPIC_ID || '',
-						},
-					],
-				},
-			},
-		})
-
-		const messages = (await messageChannel.messages.fetch({ limit: 20 }))
-			.filter(
-				(msg) =>
-					!msg.content.toLowerCase().startsWith('/ticket') &&
-					msg.content !== 'Creating ticket...'
-			)
-			.reverse()
-
-		const urls = messages
-			.map((msg) => {
-				const urlRegex = /(https?:\/\/[^\s]+)/g
-				const urls = msg.content.match(urlRegex)
-				return urls ? urls : []
 			})
-			.flat()
 
-		const blockId = response.id
+			// Fetch the latest messages to include in the ticket
+			const messages = (await messageChannel.messages.fetch({ limit: 20 }))
+				.filter(
+					(msg) =>
+						!msg.content.toLowerCase().startsWith('/ticket') &&
+						msg.content !== 'Creating ticket...'
+				)
+				.reverse()
 
-		await notion.blocks.children.append({
-			block_id: blockId,
-			children: [
+			// Clean up message content by removing mentions
+			const cleanedMessages = messages.map((msg) => {
+				return {
+					...msg,
+					content: cleanMessageContent(msg.content),
+				}
+			})
+
+			// Extract URLs from messages
+			const urls = cleanedMessages
+				.map((msg) => {
+					const urlRegex = /(https?:\/\/[^\s]+)/g
+					return msg.content.match(urlRegex) || []
+				})
+				.flat()
+
+			// Extract image URLs from attachments and content
+			const imageUrls = cleanedMessages
+				.map((msg) => {
+					// Check for attachments with image types
+					const attachmentImages = msg.attachments.filter((attachment) =>
+						attachment.contentType?.startsWith('image/')
+					)
+					const attachmentUrls = Array.from(attachmentImages.values()).map(
+						(attachment) => attachment.url
+					)
+
+					// Check for image URLs in message content
+					const urlRegex = /(https?:\/\/[^\s]+)/g
+					const contentUrls =
+						msg.content
+							.match(urlRegex)
+							?.filter(
+								(url) =>
+									url.endsWith('.png') ||
+									url.endsWith('.jpg') ||
+									url.endsWith('.jpeg') ||
+									url.endsWith('.gif')
+							) || []
+
+					return [...attachmentUrls, ...contentUrls]
+				})
+				.flat()
+
+			// Create the Notion blocks dynamically
+			const notionChildren: any[] = [
 				{
 					quote: {
 						rich_text: [
-							{
-								text: {
-									content: 'Ticket created by The Escapist bot. \n',
-								},
-							},
+							{ text: { content: 'Ticket created by The Escapist bot. \n' } },
 							{
 								text: {
 									content: messageChannel.url,
-									link: {
-										url: messageChannel.url,
-									},
+									link: { url: messageChannel.url },
 								},
 							},
 						],
@@ -103,52 +127,40 @@ export async function handleNotionTicket(message: Message) {
 				},
 				{
 					heading_2: {
-						rich_text: [
-							{
-								text: {
-									content: 'Link',
-								},
-							},
-						],
+						rich_text: [{ text: { content: 'Links' } }],
 					},
 				},
 				{
 					paragraph: {
 						rich_text: urls.map((url) => ({
-							text: {
-								content: url,
-								link: {
-									url: url,
-								},
-							},
+							text: { content: url + '\n', link: { url } },
 						})),
 					},
 				},
-				{
-					image: {
-						type: 'external',
-						external: {
-							url: messages
-								.map((msg) => {
-									if (msg.attachments.size > 0) {
-										return msg.attachments.first()?.url
-									}
-									return null
-								})
-								.filter((url) => url !== null)
-								.join(', '),
+			]
+
+			// Add images if any
+			if (imageUrls.length > 0) {
+				notionChildren.push(
+					{
+						heading_2: {
+							rich_text: [{ text: { content: 'Images' } }],
 						},
 					},
-				},
+					...imageUrls.map((imageUrl) => ({
+						image: {
+							type: 'external',
+							external: { url: imageUrl },
+						},
+					}))
+				)
+			}
+
+			// Add message content with usernames to the ticket
+			notionChildren.push(
 				{
 					heading_2: {
-						rich_text: [
-							{
-								text: {
-									content: 'Ticket details',
-								},
-							},
-						],
+						rich_text: [{ text: { content: 'History' } }],
 					},
 				},
 				{
@@ -156,18 +168,33 @@ export async function handleNotionTicket(message: Message) {
 						rich_text: [
 							{
 								text: {
-									content: messages.map((msg) => msg.content).join('\n'),
+									content: cleanedMessages
+										.map((msg) => `- ${msg.content}`)
+										.join('\n'),
 								},
 							},
 						],
 					},
-				},
-			],
-		})
+				}
+			)
 
-		const ticketUrl = `https://www.notion.so/${response.id.replace(/-/g, '')}`
-		message.reply(
-			`Ticket "${ticketTitle}" created successfully. You can view it [here](${ticketUrl}).`
-		)
+			// Append children to the Notion page
+			const blockId = response.id
+			await notion.blocks.children.append({
+				block_id: blockId,
+				children: notionChildren,
+			})
+
+			// Reply with the link to the ticket
+			const ticketUrl = `https://www.notion.so/${response.id.replace(/-/g, '')}`
+			await message.reply(
+				`Ticket "${ticketTitle}" created successfully. You can view it [here](${ticketUrl}).`
+			)
+		} catch (error) {
+			console.error('Error creating ticket:', error)
+			await message.reply(
+				'Failed to create the ticket. Please try again later.'
+			)
+		}
 	}
 }
