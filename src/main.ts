@@ -4,6 +4,7 @@ import { handleMiam } from './handlers/miamHandler'
 import { handleNotionTicket } from './handlers/notionTicketHandler'
 import { handlePing } from './handlers/pingHandler'
 import { handleQuoi } from './handlers/quoiHandler'
+import { handleRompiche } from './handlers/rompicheHandler'
 
 dotenv.config()
 
@@ -34,6 +35,7 @@ class EscapistApplication {
 			handlePing(message)
 			handleQuoi(message)
 			handleNotionTicket(message)
+			handleRompiche(message)
 		})
 	}
 
