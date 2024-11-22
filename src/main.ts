@@ -1,14 +1,16 @@
 import { Client, GatewayIntentBits } from 'discord.js'
 import dotenv from 'dotenv'
 import { handleMiam } from './handlers/miamHandler'
+import { handleNotionTicket } from './handlers/notionTicketHandler'
 import { handlePing } from './handlers/pingHandler'
 import { handleQuoi } from './handlers/quoiHandler'
+
 dotenv.config()
 
 const DISCORD_ACCESS_TOKEN = process.env.DISCORD_ACCESS_TOKEN || ''
-
 const DISCORD_TEST_CHANNEL_ID = '1299353563151208470'
-const DISCORD_CHANNEL_ID = '878202062813413397'
+const DISCORD_CHANNEL_ID =
+	process.env.DISCORD_CHANNEL_ID || DISCORD_TEST_CHANNEL_ID
 
 class EscapistApplication {
 	private client: Client
@@ -31,6 +33,7 @@ class EscapistApplication {
 		this.client.on('messageCreate', (message) => {
 			handlePing(message)
 			handleQuoi(message)
+			handleNotionTicket(message)
 		})
 	}
 
