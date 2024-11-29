@@ -13,6 +13,7 @@ export default (): Command => {
 			.addChoices(
 				{ name: 'Ok', value: '🆗' },
 				{ name: 'Alert', value: '🚨' },
+				{ name: 'Waiting', value: '⏳' },
 				{ name: 'Custom', value: 'custom' },
 			))
             .addStringOption((option) => option.setName('icon').setDescription('Chose custom icon').setRequired(false))
