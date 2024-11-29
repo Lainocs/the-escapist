@@ -6,7 +6,8 @@
 		"test": "echo \"Error: no test specified\" && exit 1",
 		"build": "tsc",
 		"prestart": "npm run build",
-		"start": "node build/main.js"
+		"start": "node build/main.js",
+		"dev": "npm run build && node build/main.js"
 	},
 	"keywords": [],
 	"author": "",

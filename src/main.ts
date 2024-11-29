@@ -1,17 +1,25 @@
-import { Client, GatewayIntentBits } from 'discord.js'
+import { 
+	ChatInputCommandInteraction,
+	Client, 
+	Events, 
+	GatewayIntentBits,
+	REST,
+	Routes, 
+} from 'discord.js'
+import { InteractionHandler } from './interaction-hander'
 import dotenv from 'dotenv'
-import { handleMiam } from './handlers/miamHandler'
 import { handlePing } from './handlers/pingHandler'
 import { handleQuoi } from './handlers/quoiHandler'
 dotenv.config()
 
 const DISCORD_ACCESS_TOKEN = process.env.DISCORD_ACCESS_TOKEN || ''
 
-const DISCORD_TEST_CHANNEL_ID = '1299353563151208470'
-const DISCORD_CHANNEL_ID = '878202062813413397'
+const DISCORD_APPLICATION_ID = '1299343190687744000'
 
 class EscapistApplication {
-	private client: Client
+	private discordRestClient: REST = new REST().setToken(DISCORD_ACCESS_TOKEN);
+	private interactionHandler: InteractionHandler;
+	private client: Client;
 
 	constructor() {
 		this.client = new Client({
@@ -25,19 +33,46 @@ class EscapistApplication {
 			shards: 'auto',
 			failIfNotExists: false,
 		})
+		this.interactionHandler = new InteractionHandler()
+	}
 
-		handleMiam(this.client, DISCORD_CHANNEL_ID)
+	registerSlashCommands() {
+		const commands = this.interactionHandler.getSlashCommands();
+		this.discordRestClient
+			.put(
+				Routes.applicationCommands(DISCORD_APPLICATION_ID), 
+				{ body: commands }
+			)
+			.then((data: any) => {
+				console.log(`Successfully registered ${data.length} global application (/) commands`);
+			})
+			.catch((err) => {
+				console.error("Error registering application (/) commands", err);
+			});
+		}
 
-		this.client.on('messageCreate', (message) => {
+	addClientEventHandlers() {
+		this.client.on(Events.Error, (err: Error) => {
+			console.error("Client error", err);
+		});
+		this.client.on(Events.MessageCreate, (message) => {
 			handlePing(message)
 			handleQuoi(message)
 		})
+		this.client.on(Events.InteractionCreate, (interaction) => {
+			this.interactionHandler.handleInteraction(
+			  interaction as ChatInputCommandInteraction
+			);
+		  });
 	}
+	
 
 	startBot() {
 		this.client
 			.login(DISCORD_ACCESS_TOKEN)
 			.then(() => {
+				this.addClientEventHandlers();
+				this.registerSlashCommands();
 				console.log('Bot started')
 			})
 			.catch((err) => {
