@@ -1,18 +1,16 @@
-import { 
+import {
 	ChatInputCommandInteraction,
-	Client, 
-	Events, 
+	Client,
+	Events,
 	GatewayIntentBits,
 	REST,
-	Routes, 
+	Routes,
 } from 'discord.js'
-import { InteractionHandler } from './interaction-hander'
 import dotenv from 'dotenv'
-import { handleMiam } from './handlers/miamHandler'
-import { handleNotionTicket } from './handlers/notionTicketHandler'
 import { handlePing } from './handlers/pingHandler'
 import { handleQuoi } from './handlers/quoiHandler'
 import { handleRompiche } from './handlers/rompicheHandler'
+import { InteractionHandler } from './interaction-hander'
 
 dotenv.config()
 
@@ -23,9 +21,9 @@ const DISCORD_CHANNEL_ID =
 	process.env.DISCORD_CHANNEL_ID || DISCORD_TEST_CHANNEL_ID
 
 class EscapistApplication {
-	private discordRestClient: REST = new REST().setToken(DISCORD_ACCESS_TOKEN);
-	private interactionHandler: InteractionHandler;
-	private client: Client;
+	private discordRestClient: REST = new REST().setToken(DISCORD_ACCESS_TOKEN)
+	private interactionHandler: InteractionHandler
+	private client: Client
 
 	constructor() {
 		this.client = new Client({
@@ -43,44 +41,43 @@ class EscapistApplication {
 	}
 
 	registerSlashCommands() {
-		const commands = this.interactionHandler.getSlashCommands();
+		const commands = this.interactionHandler.getSlashCommands()
 		this.discordRestClient
-			.put(
-				Routes.applicationCommands(DISCORD_APPLICATION_ID), 
-				{ body: commands }
-			)
+			.put(Routes.applicationCommands(DISCORD_APPLICATION_ID), {
+				body: commands,
+			})
 			.then((data: any) => {
-				console.log(`Successfully registered ${data.length} global application (/) commands`);
+				console.log(
+					`Successfully registered ${data.length} global application (/) commands`
+				)
 			})
 			.catch((err) => {
-				console.error("Error registering application (/) commands", err);
-			});
-		}
+				console.error('Error registering application (/) commands', err)
+			})
+	}
 
 	addClientEventHandlers() {
 		this.client.on(Events.Error, (err: Error) => {
-			console.error("Client error", err);
-		});
+			console.error('Client error', err)
+		})
 		this.client.on(Events.MessageCreate, (message) => {
 			handlePing(message)
 			handleQuoi(message)
-			handleNotionTicket(message)
 			handleRompiche(message)
 		})
 		this.client.on(Events.InteractionCreate, (interaction) => {
 			this.interactionHandler.handleInteraction(
-			  interaction as ChatInputCommandInteraction
-			);
-		  });
+				interaction as ChatInputCommandInteraction
+			)
+		})
 	}
-	
 
 	startBot() {
 		this.client
 			.login(DISCORD_ACCESS_TOKEN)
 			.then(() => {
-				this.addClientEventHandlers();
-				this.registerSlashCommands();
+				this.addClientEventHandlers()
+				this.registerSlashCommands()
 				console.log('Bot started')
 			})
 			.catch((err) => {
