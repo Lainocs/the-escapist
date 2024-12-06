@@ -73,10 +73,10 @@ export default (): Command => {
 					.setRequired(true)
 					.addChoices(
 						{ name: '🔥 FAST TRACK 🔥', value: '🔥 FAST TRACK 🔥' },
-						{ name: '1', value: '1' },
-						{ name: '2', value: '2' },
-						{ name: '3', value: '3' },
-						{ name: '4', value: '4' }
+						{ name: '#P1', value: '#P1' },
+						{ name: '#P2', value: '#P2' },
+						{ name: '#P3', value: '#P3' },
+						{ name: '#P4', value: '#P4' }
 					)
 			)
 			.addStringOption((option) =>
@@ -129,7 +129,7 @@ export default (): Command => {
 						},
 						'🎯 Priority': {
 							select: {
-								name: '#P' + (interaction.options.getString('priority') ?? '1'),
+								name: interaction.options.getString('priority') ?? '#P1',
 							},
 						},
 						'🏔️ Epic': {
@@ -139,7 +139,7 @@ export default (): Command => {
 				})
 
 				// Fetch the latest messages to include in the ticket
-				const messages = (await messageChannel.messages.fetch({ limit: 20 }))
+				const messages = (await messageChannel.messages.fetch({ limit: 50 }))
 					.filter(
 						(msg) =>
 							!msg.content.toLowerCase().startsWith('/ticket') &&
