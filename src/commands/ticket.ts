@@ -65,13 +65,14 @@ export default (): Command => {
 	return {
 		slashCommandConfig: new SlashCommandBuilder()
 			.setName('ticket')
-			.setDescription('Create a ticket')
+			.setDescription('Create a Notion ticket')
 			.addStringOption((option) =>
 				option
 					.setName('priority')
-					.setDescription('Chose priority of ticket (1, 2, 3, 4)')
+					.setDescription('Chose priority of ticket')
 					.setRequired(true)
 					.addChoices(
+						{ name: '🔥 FAST TRACK 🔥', value: '🔥 FAST TRACK 🔥' },
 						{ name: '1', value: '1' },
 						{ name: '2', value: '2' },
 						{ name: '3', value: '3' },
@@ -81,9 +82,7 @@ export default (): Command => {
 			.addStringOption((option) =>
 				option
 					.setName('team')
-					.setDescription(
-						'Chose team of ticket (app, r&d, devops, product, design, biz, marketing, ops)'
-					)
+					.setDescription('Chose team of ticket')
 					.setRequired(true)
 					.addChoices(
 						{ name: 'Tech - App', value: 'Tech - App' },
