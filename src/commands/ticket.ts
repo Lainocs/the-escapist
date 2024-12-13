@@ -147,11 +147,12 @@ export default (): Command => {
 					)
 					.reverse()
 
-				// Clean up message content by removing mentions
+				// Clean up message content by removing mentions and add author
 				const cleanedMessages = messages.map((msg) => {
 					return {
 						...msg,
 						content: cleanMessageContent(msg.content),
+						author: msg.author.username,
 					}
 				})
 
@@ -253,7 +254,7 @@ export default (): Command => {
 					},
 					...cleanedMessages.map((msg) => ({
 						paragraph: {
-							rich_text: generateRichText(msg.content),
+							rich_text: generateRichText(`${msg.author}:\n${msg.content}\n`),
 						},
 					}))
 				)
