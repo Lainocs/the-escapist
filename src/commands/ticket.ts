@@ -270,7 +270,7 @@ export default (): Command => {
 					/-/g,
 					''
 				)}`
-				const successMessage = `Ticket created successfully. You can view it [here](${ticketUrl}).\n**Title**: "${ticketTitle}"\n**Priority**: ${priority}\n**Team**: ${team}`
+				const successMessage = `Ticket created successfully. You can view it [here](${ticketUrl}).\n**Title**: \`${ticketTitle}\`\n**Priority**: \`${priority}\`\n**Team**: \`${team}\``
 
 				await interaction.editReply(successMessage)
 			} catch (error) {
