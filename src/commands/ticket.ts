@@ -69,7 +69,7 @@ export default (): Command => {
 			.addStringOption((option) =>
 				option
 					.setName('priority')
-					.setDescription('Chose priority of ticket')
+					.setDescription('Choose priority of the ticket')
 					.setRequired(true)
 					.addChoices(
 						{ name: '🔥 FAST TRACK 🔥', value: '🔥 FAST TRACK 🔥' },
@@ -82,7 +82,7 @@ export default (): Command => {
 			.addStringOption((option) =>
 				option
 					.setName('team')
-					.setDescription('Chose team of ticket')
+					.setDescription('Choose team of the ticket')
 					.setRequired(true)
 					.addChoices(
 						{ name: 'Tech - App', value: 'Tech - App' },
@@ -115,6 +115,10 @@ export default (): Command => {
 			await interaction.deferReply()
 
 			try {
+				// Extract priority and team options
+				const priority = interaction.options.getString('priority') ?? '#P1'
+				const team = interaction.options.getString('team') ?? 'Tech - App'
+
 				// Create a page in Notion
 				const response = await notion.pages.create({
 					parent: { type: 'database_id', database_id: NOTION_DATABASE_ID },
@@ -123,14 +127,10 @@ export default (): Command => {
 							title: [{ text: { content: ticketTitle } }],
 						},
 						'👫 Team': {
-							multi_select: [
-								{ name: interaction.options.getString('team') ?? 'Tech - App' },
-							],
+							multi_select: [{ name: team }],
 						},
 						'🎯 Priority': {
-							select: {
-								name: interaction.options.getString('priority') ?? '#P1',
-							},
+							select: { name: priority },
 						},
 						'🏔️ Epic': {
 							relation: [{ id: NOTION_EPIC_ID }],
@@ -196,7 +196,14 @@ export default (): Command => {
 					{
 						quote: {
 							rich_text: [
-								{ text: { content: 'Ticket created by The Escapist bot. \n' } },
+								{
+									text: {
+										content:
+											'Ticket created by ' +
+											interaction.user.username +
+											' via The Escapist bot. \n',
+									},
+								},
 								{
 									text: {
 										content: messageChannel.url,
@@ -258,14 +265,14 @@ export default (): Command => {
 					children: notionChildren,
 				})
 
-				// Reply with the link to the ticket
+				// Construct and send the success message
 				const ticketUrl = `https://www.notion.so/${response.id.replace(
 					/-/g,
 					''
 				)}`
-				await interaction.editReply(
-					`Ticket "${ticketTitle}" created successfully. You can view it [here](${ticketUrl}).`
-				)
+				const successMessage = `Ticket created successfully. You can view it [here](${ticketUrl}).\n**Title**: "${ticketTitle}"\n**Priority**: ${priority}\n**Team**: ${team}`
+
+				await interaction.editReply(successMessage)
 			} catch (error) {
 				console.error('Error creating ticket:', error)
 				await interaction.editReply(
