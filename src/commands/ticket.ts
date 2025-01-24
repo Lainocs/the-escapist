@@ -139,7 +139,7 @@ export default (): Command => {
 				})
 
 				// Fetch the latest messages to include in the ticket
-				const messages = (await messageChannel.messages.fetch({ limit: 50 }))
+				const messages = (await messageChannel.messages.fetch({ limit: 10 }))
 					.filter(
 						(msg) =>
 							!msg.content.toLowerCase().startsWith('/ticket') &&
