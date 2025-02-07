@@ -1,4 +1,5 @@
 import { ChatInputCommandInteraction } from 'discord.js'
+import MaxenceCommand from './commands/maxence'
 import RenameCommand from './commands/rename'
 import TicketCommand from './commands/ticket'
 import { Command } from './types/command'
@@ -7,7 +8,7 @@ export class InteractionHandler {
 	private commands: Command[] = []
 
 	constructor() {
-		this.commands.push(RenameCommand(), TicketCommand())
+		this.commands.push(RenameCommand(), TicketCommand(), MaxenceCommand())
 	}
 
 	getSlashCommands = () =>
